@@ -60,16 +60,20 @@ document.getElementById('generate_grid').addEventListener('click', function () {
   // seleziono una cella che ha classe cell 
   const cellEl = document.querySelectorAll(".cell")
   
-
-  // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
-  let arrayRandom = [];
-  while (arrayRandom.length < 16) {
-    let randomNumber = Math.floor(Math.random() * numCells) + 1;
-    if (!arrayRandom.includes(randomNumber)) {
-      arrayRandom.push(randomNumber);
-    }
-  }
-  console.log(arrayRandom, 'BOMBAAA!!');
+function generateNumbersRandom() {
+   // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+   let arrayRandom = [];
+   while (arrayRandom.length < 16) {
+     let randomNumber = Math.floor(Math.random() * numCells) + 1;
+     //nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle bombe non potranno esserci due numeri uguali.
+     if (!arrayRandom.includes(randomNumber)) {
+       arrayRandom.push(randomNumber);
+     }
+   }
+   return arrayRandom
+}
+const array = generateNumbersRandom()
+console.log(array);
 
   
   // aggiungo eventlisner per la classe active ciclando per la lunghezza dell'array cellEl
@@ -87,6 +91,10 @@ document.getElementById('generate_grid').addEventListener('click', function () {
       
       //creo costante per stampare il numero della cella cliccata in console
       console.log(numberCell);
+
+      
+
+
     })
   }
 })
