@@ -52,7 +52,8 @@ document.getElementById('generate_grid').addEventListener('click', function () {
   for (let i = 0; i < numCells; i++) {
     const numCell = Number(i + 1);
     //console.log(numCell);
-    const cell = `<div class="cell d-flex align-items-center justify-content-center">${numCell}</div>`;
+    const cell = `<div class="cell d-flex align-items-center justify-content-center" style="width: calc(100% / ${Math.sqrt(numCells)}">${numCell}</div>`;
+
     container.innerHTML += cell;
   }
 
@@ -60,7 +61,7 @@ document.getElementById('generate_grid').addEventListener('click', function () {
 
   // seleziono una cella che ha classe cell 
   const cellEl = document.querySelectorAll(".cell")
-      thisCell.style.width = `calc(100% / ${Math.sqrt(numCells)})`
+  
 
 
   // aggiungo eventlisner per la classe active ciclando per la lunghezza dell'array cellEl
