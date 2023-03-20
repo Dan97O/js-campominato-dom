@@ -1,5 +1,5 @@
-   /* 
-    Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+/* 
+ Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
 nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle bombe non potranno esserci due numeri uguali.
 In seguito l'utente clicca su una cella:
 se il numero è presente nella lista dei numeri generati
@@ -28,6 +28,15 @@ Ogni cella ha un numero progressivo, da 1 a 100.
 Ci saranno quindi 10 caselle per ognuna delle 10 righe.
 Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro ed emetto un messaggio in console con il numero della cella cliccata. */
 
+
+
+
+
+
+
+
+
+// Seleziono la difficoltà
 const selectEl = document.getElementById("difficulty");
 let numCells;
 
@@ -37,11 +46,11 @@ document.getElementById('generate_grid').addEventListener('click', function () {
 
   /* Creare una griglia in base alla scelta dell'utente: facile/medio/difficile
    Ogni volta che clicco su un quadrato si colora di azzurro */
-
   // Creo una variabile dove salvo il container delle n celle (container-grid)
   const container = document.querySelector("main .container");
+  //svuoto il containeir
   container.innerHTML = '';
-  
+
   // creo un max numero di celle
   //+ bonus
   numCells = Number(selectEl.value);
@@ -54,60 +63,66 @@ document.getElementById('generate_grid').addEventListener('click', function () {
     //console.log(numCell);
     const cell = `<div class="cell d-flex align-items-center justify-content-center" style="width: calc(100% / ${Math.sqrt(numCells)}">${numCell}</div>`;
     container.innerHTML += cell;
-
   }
-
 
   // seleziono una cella che ha classe cell 
   const cellEl = document.querySelectorAll(".cell")
-  
+
+  //creo una funzione generateNumbersRandom() che mi genera le bombe
+  function generateNumbersRandom() {
+    // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+    let arrayRandom = [];
+    while (arrayRandom.length < 16) {
+      let randomNumber = Math.floor(Math.random() * numCells) + 1;
+      //nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle bombe non potranno esserci due numeri uguali.
+      if (!arrayRandom.includes(randomNumber)) {
+        arrayRandom.push(randomNumber);
+      }
+    }
+    return arrayRandom
+  }
+  // Creo una costante per richiamare la funzione delle bombe random
+  const numberRandom = generateNumbersRandom()
+  console.log(numberRandom);
+
+  // Creo una variabile let per lo score della partita
+  let score = 0;
 
 
-  // funzione generateNumbersRandom()
-function generateNumbersRandom() {
-   // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
-   let arrayRandom = [];
-   while (arrayRandom.length < 16) {
-     let randomNumber = Math.floor(Math.random() * numCells) + 1;
-     //nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle bombe non potranno esserci due numeri uguali.
-     if (!arrayRandom.includes(randomNumber)) {
-       arrayRandom.push(randomNumber);
-     }
-   }
-   return arrayRandom
-}
-const numberRandom = generateNumbersRandom()
-console.log(numberRandom);
-let score = 0;
 
-
-  
   // aggiungo eventlisner per la classe active ciclando per la lunghezza dell'array cellEl
-
   for (let i = 0; i < cellEl.length; i++) {
     const thisCell = cellEl[i];
     console.log(thisCell)
 
+    // Creo un event listener per ogni casella cliccata
     thisCell.addEventListener("click", function () {
+
+      // Aumento lo score per ogni volta che clicco su una casella di gioco
       score++;
+
       /* creo un if per indicare quando trovo la bomba e ricarico la partita */
       if (numberRandom.includes(Number(thisCell.innerText))) {
+
         //Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
         thisCell.classList.add("bg_alert");
         setTimeout(() => {
-          alert(`BOMBAAAA!! HAI PERSO!, HAI TROVATO n° ${score -1} CASELLE CORRETTE...CLICCA OK PER RIPROVARE. `);
+          alert(`BOMBAAAA!! HAI PERSO!, HAI TROVATO n° ${score - 1} CASELLE CORRETTE...CLICCA OK PER RIPROVARE. `);
           location.reload();
         }, 1);
+
       } else {
-         //numero di volte che l’utente ha cliccato su una cella che non era una bomba
-         thisCell.classList.toggle("bg_azure")
-         console.log(`CASELLE CORRETTE! n° ${score}`);
-         // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
+
+        //numero di volte che l’utente ha cliccato su una cella che non era una bomba
+        thisCell.classList.toggle("bg_azure")
+        console.log(`CASELLE CORRETTE! n° ${score}`);
+        
+        // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
         if (score == cellEl.length - 16) {
-           alert(`HAI VINTO!! IL TUO PUNTEGGIO E' ${score}`); 
-           location.reload(); 
+          alert(`HAI VINTO!! IL TUO PUNTEGGIO E' ${score}`);
+          location.reload();
         }
-      }      
+      }
     })
   }
 })
