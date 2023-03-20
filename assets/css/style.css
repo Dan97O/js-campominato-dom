@@ -24,6 +24,10 @@
   background-color: #7fffd4;;
 }
 
+.bg_alert{
+  background-color: red;
+}
+
 main{background-color: #7fffd4;}
 
 .title img{

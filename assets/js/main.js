@@ -60,6 +60,8 @@ document.getElementById('generate_grid').addEventListener('click', function () {
   // seleziono una cella che ha classe cell 
   const cellEl = document.querySelectorAll(".cell")
   
+
+  // funzione generateNumbersRandom()
 function generateNumbersRandom() {
    // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
    let arrayRandom = [];
@@ -72,8 +74,8 @@ function generateNumbersRandom() {
    }
    return arrayRandom
 }
-const array = generateNumbersRandom()
-console.log(array);
+const numberRandom = generateNumbersRandom()
+console.log(numberRandom);
 
   
   // aggiungo eventlisner per la classe active ciclando per la lunghezza dell'array cellEl
@@ -83,19 +85,14 @@ console.log(array);
 
     thisCell.addEventListener("click", function () {
       
-      //creo costante per stampare il numero della cella cliccata in console
-      const numberCell = Number(i + 1);
-      // cambio colore ogni volta che clicco sulla cella
-      thisCell.classList.toggle("bg_azure")
-      console.log("Changed the color")
-      
-      //creo costante per stampare il numero della cella cliccata in console
-      console.log(numberCell);
-
-      
-
-
+      if (numberRandom.includes(Number(thisCell.innerText))) {
+        thisCell.classList.toggle("bg_alert")
+      } else {
+        thisCell.classList.toggle("bg_azure")
+      }
+  
     })
   }
+  
 })
 
