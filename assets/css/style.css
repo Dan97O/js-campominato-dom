@@ -1,0 +1,46 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+  padding: 3rem;
+}
+
+.cell{
+  width: calc(100% / 10);
+  border: 1px solid black;
+  aspect-ratio: 1/1;
+  background-color: white;
+  border-radius: 3px;
+}
+
+.bg_azure{
+  background-color: #7fffd4;;
+}
+
+main{background-color: #7fffd4;}
+
+.title img{
+  width: 80px;
+}
+
+.title h1{
+  display: flex;
+  align-items: center;
+}
+
+.play button{
+  padding: 1px 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+.medium .cell{
+  width: calc(100% / 9);
+}
