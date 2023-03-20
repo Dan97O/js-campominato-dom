@@ -86,7 +86,11 @@ console.log(numberRandom);
     thisCell.addEventListener("click", function () {
       
       if (numberRandom.includes(Number(thisCell.innerText))) {
-        thisCell.classList.toggle("bg_alert")
+        thisCell.classList.add("bg_alert");
+        setTimeout(() => {
+          alert(`BOMBAAAA!! HAI PERSO!, CLICCA OK PER RIPROVARE`);
+          location.reload();
+        }, 1);
       } else {
         thisCell.classList.toggle("bg_azure")
       }
