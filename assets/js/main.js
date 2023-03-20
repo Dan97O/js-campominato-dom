@@ -53,17 +53,25 @@ document.getElementById('generate_grid').addEventListener('click', function () {
     const numCell = Number(i + 1);
     //console.log(numCell);
     const cell = `<div class="cell d-flex align-items-center justify-content-center" style="width: calc(100% / ${Math.sqrt(numCells)}">${numCell}</div>`;
-
     container.innerHTML += cell;
-  }
 
- 
+  }
 
   // seleziono una cella che ha classe cell 
   const cellEl = document.querySelectorAll(".cell")
   
 
+  // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+  let arrayRandom = [];
+  while (arrayRandom.length < 16) {
+    let randomNumber = Math.floor(Math.random() * numCells) + 1;
+    if (!arrayRandom.includes(randomNumber)) {
+      arrayRandom.push(randomNumber);
+    }
+  }
+  console.log(arrayRandom, 'BOMBAAA!!');
 
+  
   // aggiungo eventlisner per la classe active ciclando per la lunghezza dell'array cellEl
   for (let i = 0; i < cellEl.length; i++) {
     const thisCell = cellEl[i];
@@ -82,9 +90,4 @@ document.getElementById('generate_grid').addEventListener('click', function () {
     })
   }
 })
-
-
-
-
-
 
