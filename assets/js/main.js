@@ -57,9 +57,11 @@ document.getElementById('generate_grid').addEventListener('click', function () {
 
   }
 
+
   // seleziono una cella che ha classe cell 
   const cellEl = document.querySelectorAll(".cell")
   
+
 
   // funzione generateNumbersRandom()
 function generateNumbersRandom() {
@@ -76,27 +78,37 @@ function generateNumbersRandom() {
 }
 const numberRandom = generateNumbersRandom()
 console.log(numberRandom);
+let score = 0;
+
 
   
   // aggiungo eventlisner per la classe active ciclando per la lunghezza dell'array cellEl
+
   for (let i = 0; i < cellEl.length; i++) {
     const thisCell = cellEl[i];
     console.log(thisCell)
 
     thisCell.addEventListener("click", function () {
-      
+      score++;
+      /* creo un if per indicare quando trovo la bomba e ricarico la partita */
       if (numberRandom.includes(Number(thisCell.innerText))) {
+        //Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
         thisCell.classList.add("bg_alert");
         setTimeout(() => {
-          alert(`BOMBAAAA!! HAI PERSO!, CLICCA OK PER RIPROVARE`);
+          alert(`BOMBAAAA!! HAI PERSO!, HAI TROVATO n° ${score -1} CASELLE CORRETTE...CLICCA OK PER RIPROVARE. `);
           location.reload();
         }, 1);
       } else {
-        thisCell.classList.toggle("bg_azure")
-      }
-  
+         //numero di volte che l’utente ha cliccato su una cella che non era una bomba
+         thisCell.classList.toggle("bg_azure")
+         console.log(`CASELLE CORRETTE! n° ${score}`);
+         // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
+        if (score == cellEl.length - 16) {
+           alert(`HAI VINTO!! IL TUO PUNTEGGIO E' ${score}`); 
+           location.reload(); 
+        }
+      }      
     })
   }
-  
 })
 
